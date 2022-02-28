@@ -2,7 +2,7 @@
 tinylog 2 Email Writer based on Simple Java Mail
 
 This is a [custom writer](https://tinylog.org/v2/extending/#custom-writer) for [tinylog 2](https://tinylog.org/v2/) logging framework to send emails.
-Emails are sent with [Simple Java Mail](https://www.simplejavamail.org/) which is based on Jakarate Mail 2 library.
+Emails are sent with [Simple Java Mail](https://www.simplejavamail.org/) which is based on Jakarata Mail 2 library.
 
 ## Installation
 
