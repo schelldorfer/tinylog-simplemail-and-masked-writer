@@ -15,8 +15,24 @@ import org.tinylog.core.LogEntry;
 import org.tinylog.provider.InternalLogger;
 import org.tinylog.writers.AbstractFormatPatternWriter;
 
+/**
+ * tinylog 2 Email Writer based on Simple Java Mail</br>
+ * This is a <a href="https://tinylog.org/v2/extending/#custom-writer">custom writer</a> for
+ * <a href="https://tinylog.org/v2/">tinylog 2</a> logging framework to send emails. Emails are sent with
+ * <a href="https://www.simplejavamail.org/">Simple Java Mail</a> which is based on Jakarata Mail 2 library.
+ * 
+ * @author Martin Schelldorfer, 2022
+ */
 public class SimpleMailWriter extends AbstractFormatPatternWriter
 {
+    /**
+     * writer property prefix for all Simple Java Mail properties<br/>
+     * see <a href=
+     * "https://www.simplejavamail.org/configuration.html#section-available-properties">https://www.simplejavamail.org/configuration.html#section-available-properties</a>
+     * for all available properties
+     */
+    private final String PROPERTY_SIMPLEMAIL = "simplejavamail.";
+
     private Mailer mailer;
     private EmailPopulatingBuilder emailBuilder;
 
@@ -26,7 +42,7 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
 
         Properties smp = new Properties();
         properties.forEach((key, value) -> {
-            if (key.startsWith("simplejavamail."))
+            if (key.startsWith(PROPERTY_SIMPLEMAIL))
                 smp.put(key, value);
         });
 
