@@ -16,10 +16,10 @@ import org.tinylog.provider.InternalLogger;
 import org.tinylog.writers.AbstractFormatPatternWriter;
 
 /**
- * tinylog 2 Email Writer based on Simple Java Mail</br>
+ * tinylog 2 Email Writer based on Simple Java Mail<br/>
  * This is a <a href="https://tinylog.org/v2/extending/#custom-writer">custom writer</a> for
  * <a href="https://tinylog.org/v2/">tinylog 2</a> logging framework to send emails. Emails are sent with
- * <a href="https://www.simplejavamail.org/">Simple Java Mail</a> which is based on Jakarata Mail 2 library.
+ * <a href="https://www.simplejavamail.org/">Simple Java Mail</a> which is based on Jakarta Mail 2 library.
  * 
  * @author Martin Schelldorfer, 2022
  */
