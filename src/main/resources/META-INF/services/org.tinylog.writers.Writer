@@ -1,1 +1,4 @@
 com.github.schelldorfer.tinylog.writers.SimpleMailWriter
+com.github.schelldorfer.tinylog.writers.MaskedFileWriter
+com.github.schelldorfer.tinylog.writers.MaskedRollingFileWriter
+com.github.schelldorfer.tinylog.writers.MaskedConsoleWriter

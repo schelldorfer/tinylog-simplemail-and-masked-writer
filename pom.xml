@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.schelldorfer</groupId>
-    <artifactId>tinylog-simplemail-writer</artifactId>
+    <artifactId>tinylog-simplemail-and-masked-writer</artifactId>
     <version>1.0.0</version>
 
     <packaging>jar</packaging>
 
-    <name>tinylog SimpleMail Writer</name>
-    <description>tinylog 2 Email Writer based on Simple Java Mail</description>
+    <name>tinylog SimpleMail and Masked Writers</name>
+    <description>tinylog 2 Email Writer based on Simple Java Mail and Masked Writers</description>
 
     <properties>
         <timestamp>${maven.build.timestamp}</timestamp>
@@ -35,6 +35,12 @@
             <groupId>org.simplejavamail</groupId>
             <artifactId>simple-java-mail</artifactId>
             <version>7.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

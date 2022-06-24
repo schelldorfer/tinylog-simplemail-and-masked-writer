@@ -2,7 +2,6 @@ package com.github.schelldorfer.tinylog.writers;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
@@ -23,10 +22,7 @@ public final class MaskedFileWriter extends AbstractFormatPatternWriter
     private final Charset charset;
     private final ByteArrayWriter writer;
 
-    /**
-     * list with all filters
-     */
-    private final ArrayList<Filter> filters;
+    private final MaskedWriterUtil maskedWriter;
 
     /**
      * @throws IOException
@@ -58,12 +54,12 @@ public final class MaskedFileWriter extends AbstractFormatPatternWriter
         charset = getCharset();
         writer = createByteArrayWriter(fileName, append, buffered, !writingThread, false, charset);
 
-        filters = MaskedWriterUtil.createFilter(properties);
+        maskedWriter = new MaskedWriterUtil(properties);
     }
 
     @Override
     public void write(LogEntry logEntry) throws IOException {
-        logEntry = MaskedWriterUtil.mask(logEntry, filters);
+        logEntry = maskedWriter.mask(logEntry);
 
         byte[] data = render(logEntry).getBytes(charset);
         writer.write(data, 0, data.length);

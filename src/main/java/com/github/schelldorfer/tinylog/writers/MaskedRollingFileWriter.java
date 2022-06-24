@@ -43,10 +43,7 @@ public final class MaskedRollingFileWriter extends AbstractFormatPatternWriter {
 
     private ByteArrayWriter writer;
 
-    /**
-     * list with all filters
-     */
-    private final ArrayList<Filter> filters;
+    private final MaskedWriterUtil maskedWriter;
 
     /**
      * @throws IOException
@@ -104,12 +101,12 @@ public final class MaskedRollingFileWriter extends AbstractFormatPatternWriter {
         writingThread = getBooleanValue("writingthread");
         writer = createByteArrayWriterAndLinkLatest(fileName, append, buffered, charset);
 
-        filters = MaskedWriterUtil.createFilter(properties);
+        maskedWriter = new MaskedWriterUtil(properties);
     }
 
     @Override
     public void write(LogEntry logEntry) throws IOException {
-        logEntry = MaskedWriterUtil.mask(logEntry, filters);
+        logEntry = maskedWriter.mask(logEntry);
 
         byte[] data = render(logEntry).getBytes(charset);
         if (writingThread) {
