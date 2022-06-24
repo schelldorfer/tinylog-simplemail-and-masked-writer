@@ -1,11 +1,29 @@
 package com.github.schelldorfer.tinylog.writers;
 
+/**
+ * Contains all information of a masking filter
+ */
 class MaskingFilter
 {
+    /**
+     * prefix search string
+     */
     public final String prefix;
+    /**
+     * suffix search string
+     */
     public final String suffix;
+    /**
+     * number of characters used for fixed length masking
+     */
     public final int fixedLength;
 
+    /**
+     *
+     * @param prefix prefix
+     * @param suffix suffix
+     * @param fixedLength number of characters used for fixed length masking
+     */
     MaskingFilter(String prefix, String suffix, String fixedLength)
     {
         this.prefix = prefix.trim();

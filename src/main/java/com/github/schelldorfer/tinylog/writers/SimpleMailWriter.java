@@ -36,6 +36,10 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
     private Mailer mailer;
     private EmailPopulatingBuilder emailBuilder;
 
+    /**
+     *
+     * @param properties Configuration for writer
+     */
     public SimpleMailWriter(Map<String, String> properties)
     {
         super(properties);

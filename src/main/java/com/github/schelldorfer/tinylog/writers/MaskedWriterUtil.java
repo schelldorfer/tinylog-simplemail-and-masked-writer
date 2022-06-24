@@ -18,7 +18,7 @@ import java.util.Map;
  * {@value PROPERTY_FILTER_SUFFIX}, e.g. <code>{@value PROPERTY_FILTER_PREFIX}1</code> and
  * <code>{@value PROPERTY_FILTER_SUFFIX}1</code>.<br/>
  * {@link #replaceCharacter} can be configured by {@value PROPERTY_REPLACE_CHARACTER} property in tinylog configuration
- * file.</br>
+ * file.<br/>
  * If {@value PROPERTY_REPLACE_CHARACTER} property is not set, {@value DEFAULT_REPLACE_CHARACTER} is used.
  */
 class MaskedWriterUtil
@@ -74,6 +74,10 @@ class MaskedWriterUtil
      */
     private final ArrayList<MaskingFilter> filters;
 
+    /**
+     *
+     * @param properties tinylog configuration properties
+     */
     public MaskedWriterUtil(Map<String, String> properties)
     {
         // initialize filter list
