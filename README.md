@@ -1,19 +1,26 @@
 # tinylog-simplemail-and-masked-writer
+
 ## Overview
-This is a set of [custom writer](https://tinylog.org/v2/extending/#custom-writer) for [tinylog 2](https://tinylog.org/v2/) logging framework.
+
+This is a set of [custom writer](https://tinylog.org/v2/extending/#custom-writer)
+for [tinylog 2](https://tinylog.org/v2/) logging framework.
 
 ## Installation
+
 Maven
+
 ```
 <dependency>
     <groupId>ch.eswitch.tinylog.writers</groupId>
     <artifactId>simplemail-and-masked-writer</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
+
 Build Respository: https://artifactory.e-switch.ch/artifactory/libs-release-public
 
 ## SimpleMailWriter
+
 Email Writer based on Simple Java Mail
 
 Emails are sent with [Simple Java Mail](https://www.simplejavamail.org/) which is based on Jakarata Mail 2 library.
@@ -21,18 +28,23 @@ Emails are sent with [Simple Java Mail](https://www.simplejavamail.org/) which i
 ### Configuration
 
 #### Writer name
+
 `simple mail`
 
 #### Mail configuration
+
 set mail properties directly in tinylog configuration writer config
 
 see https://www.simplejavamail.org/configuration.html#section-available-properties for all available properties
 
 #### Message Formatter
+
 [Message Formatter](https://tinylog.org/v2/extending/#custom-logging-api) (`format` property) is supported
 
 #### Example
+
 example of `tinylog.properties`:
+
 ```
 writer_simplemail=simple mail
 writer_simplemail.level=error
@@ -45,14 +57,17 @@ writer_simplemail.simplejavamail.defaults.to.address=help@mailserver.com
 ```
 
 ## Masked Writers
+
 Masked Writers allow to mask (replace) some part of the log message.
 
 ### Configuration
 
 #### Writer names
+
 `masked console`, `masked file` and  `masked rolling file`
 
-see [MaskedWriterUtil](src/main/java/ch/eswitch/tinylog/writers/MaskedWriterUtil.java) for description, configuration and usage
+see [MaskedWriterUtil](src/main/java/ch/eswitch/tinylog/writers/MaskedWriterUtil.java) for description, configuration
+and usage
 
 
 
