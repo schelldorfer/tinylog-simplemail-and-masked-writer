@@ -1,4 +1,4 @@
-package com.github.schelldorfer.tinylog.writers;
+package ch.eswitch.tinylog.writers;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

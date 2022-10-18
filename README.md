@@ -6,8 +6,8 @@ This is a set of [custom writer](https://tinylog.org/v2/extending/#custom-writer
 Maven
 ```
 <dependency>
-    <groupId>com.github.schelldorfer</groupId>
-    <artifactId>tinylog-simplemail-and-masked-writer</artifactId>
+    <groupId>ch.eswitch.tinylog.writers</groupId>
+    <artifactId>simplemail-and-masked-writer</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -52,7 +52,7 @@ Masked Writers allow to mask (replace) some part of the log message.
 #### Writer names
 `masked console`, `masked file` and  `masked rolling file`
 
-see [MaskedWriterUtil](src/main/java/com/github/schelldorfer/tinylog/writers/MaskedWriterUtil.java) for description, configuration and usage
+see [MaskedWriterUtil](src/main/java/ch/eswitch/tinylog/writers/MaskedWriterUtil.java) for description, configuration and usage
 
 
 

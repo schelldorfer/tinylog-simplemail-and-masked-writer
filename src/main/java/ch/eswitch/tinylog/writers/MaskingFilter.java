@@ -1,4 +1,4 @@
-package com.github.schelldorfer.tinylog.writers;
+package ch.eswitch.tinylog.writers;
 
 /**
  * Contains all information of a masking filter

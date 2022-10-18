@@ -1,4 +1,4 @@
-package com.github.schelldorfer.tinylog.writers;
+package ch.eswitch.tinylog.writers;
 
 import org.tinylog.Level;
 import org.tinylog.core.ConfigurationParser;

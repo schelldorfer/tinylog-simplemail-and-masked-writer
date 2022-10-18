@@ -1,4 +1,4 @@
-package com.github.schelldorfer.tinylog.writers;
+package ch.eswitch.tinylog.writers;
 
 import java.util.Map;
 import java.util.Properties;
