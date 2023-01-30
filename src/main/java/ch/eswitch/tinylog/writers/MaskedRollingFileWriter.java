@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement;
 import org.tinylog.Level;
 import org.tinylog.configuration.ServiceLoader;
 import org.tinylog.converters.FileConverter;
@@ -224,7 +223,6 @@ public final class MaskedRollingFileWriter extends AbstractFormatPatternWriter
      * @param backupSuffix File extension for backup files
      * @return Found file tuples without links
      */
-    @IgnoreJRERequirement
     private List<FileTuple> getAllFileTuplesWithoutLinks(final String backupSuffix)
     {
         List<FileTuple> files = path.getAllFiles(backupSuffix);
@@ -256,7 +254,6 @@ public final class MaskedRollingFileWriter extends AbstractFormatPatternWriter
      * @return Writer for writing to passed file
      * @throws IOException Log file cannot be opened for write access
      */
-    @IgnoreJRERequirement
     private ByteArrayWriter createByteArrayWriterAndLinkLatest(final String fileName, final boolean append, final boolean buffered, final Charset charset) throws IOException
     {
         converter.open(fileName);
