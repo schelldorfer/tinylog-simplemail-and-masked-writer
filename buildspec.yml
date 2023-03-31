@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   secrets-manager:
-    ESWITCH_ARTIFACOTRY_USERNAME: "aws/artifactory:user"
+    ESWITCH_ARTIFACOTRY_USERNAME: "aws/artifactory:username"
     ESWITCH_ARTIFACOTRY_PASSWORD: "aws/artifactory:password"
 
 phases:
@@ -33,7 +33,6 @@ phases:
       - echo $(date +"%F %T.%N") build phase started
       - pwd
       - echo ESWITCH_ARTIFACOTRY_USERNAME $ESWITCH_ARTIFACOTRY_USERNAME
-      - echo artifactoryuser $artifactoryuser
       - mvn --no-transfer-progress -s settings.xml clean deploy
     finally:
       - echo $(date +"%F %T.%N") build phase ended
