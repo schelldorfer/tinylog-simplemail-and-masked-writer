@@ -33,7 +33,7 @@ phases:
       - echo $(date +"%F %T.%N") build phase started
       - pwd
       - echo ESWITCH_ARTIFACOTRY_USERNAME $ESWITCH_ARTIFACOTRY_USERNAME
-      - echo artifactory_username $artifactory_username
+      - echo artifactoryuser $artifactoryuser
       - mvn --no-transfer-progress -s settings.xml clean deploy
     finally:
       - echo $(date +"%F %T.%N") build phase ended
