@@ -33,8 +33,6 @@ phases:
       - echo $(date +"%F %T.%N") build phase started
       - pwd
       - echo ESWITCH_ARTIFACOTRY_USERNAME $ESWITCH_ARTIFACOTRY_USERNAME
-      - export ENV_ESWITCH_ARTIFACOTRY_USERNAME=$ESWITCH_ARTIFACOTRY_USERNAME
-      - export ENV_ESWITCH_ARTIFACOTRY_PASSWORD=$ESWITCH_ARTIFACOTRY_PASSWORD
       - echo ENV_ESWITCH_ARTIFACOTRY_USERNAME $ENV_ESWITCH_ARTIFACOTRY_USERNAME
       - mvn --no-transfer-progress -s settings.xml clean deploy
     finally:
