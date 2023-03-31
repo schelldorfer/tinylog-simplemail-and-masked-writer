@@ -27,7 +27,7 @@ phases:
     commands:
       - echo $(date +"%F %T.%N") build phase started
       - pwd
-      - mvn clean package
+      - mvn --no-transfer-progress -s settings.xml clean deploy
     finally:
       - echo $(date +"%F %T.%N") build phase ended
   post_build:
