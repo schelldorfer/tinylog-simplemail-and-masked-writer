@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo $(date +"%F %T.%N") install phase started
+      - yum update -y
+      - yum -y install maven ant
+    finally:
+      - echo $(date +"%F %T.%N") install phase ended
+  pre_build:
+    commands:
+      - echo $(date +"%F %T.%N") pre_build phase started
+    finally:
+      - echo $(date +"%F %T.%N") pre_build phase ended
+  build:
+    commands:
+      - echo $(date +"%F %T.%N") build phase started
+      - pwd
+      - mvn clean package
+    finally:
+      - echo $(date +"%F %T.%N") build phase ended
+  post_build:
+    commands:
+      - echo $(date +"%F %T.%N") post_build phase started
+    finally:
+      - echo $(date +"%F %T.%N") post_build phase ended
+
+artifacts:
+  files:
+     - '*.jar'
+  base-directory: target
+  name: jar
