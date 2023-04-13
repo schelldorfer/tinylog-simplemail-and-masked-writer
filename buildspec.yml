@@ -4,6 +4,12 @@ env:
   secrets-manager:
     ESWITCH_ARTIFACOTRY_USERNAME: "aws/artifactory:username"
     ESWITCH_ARTIFACOTRY_PASSWORD: "aws/artifactory:password"
+    simplejavamail.smtp.host: "aws/simplejavamail:simplejavamail.smtp.host"
+    simplejavamail.imap.host: "aws/simplejavamail:simplejavamail.imap.host"
+    simplejavamail.smtp.username: "aws/simplejavamail:simplejavamail.smtp.username"
+    simplejavamail.smtp.password: "aws/simplejavamail:simplejavamail.smtp.password"
+    simplejavamail.defaults.from.address: "aws/simplejavamail:simplejavamail.defaults.from.address"
+    simplejavamail.defaults.to.address: "aws/simplejavamail:simplejavamail.defaults.to.address"
 
 phases:
   install:
@@ -18,7 +24,7 @@ phases:
       - tar -xf apache-maven-${maven_version}-bin.tar.gz
       - mv apache-maven-${maven_version} /usr/local/apache-maven
       - export M2_HOME=/usr/local/apache-maven
-      - export M2=$M2_HOME/bin 
+      - export M2=$M2_HOME/bin
       - export PATH=$M2:$PATH
       - mvn --version
     finally:
@@ -33,6 +39,8 @@ phases:
       - echo $(date +"%F %T.%N") build phase started
       - pwd
       - echo ESWITCH_ARTIFACOTRY_USERNAME $ESWITCH_ARTIFACOTRY_USERNAME
+      - echo simplejavamail.smtp.host $simplejavamail.smtp.host
+      - echo simplejavamail.smtp.username $simplejavamail.smtp.username
       - mvn --no-transfer-progress -s settings.xml clean deploy
     finally:
       - echo $(date +"%F %T.%N") build phase ended
@@ -44,6 +52,6 @@ phases:
 
 artifacts:
   files:
-     - '*.jar'
+    - '*.jar'
   base-directory: target
   name: jar

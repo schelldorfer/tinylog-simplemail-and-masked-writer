@@ -54,6 +54,17 @@ see https://www.simplejavamail.org/configuration.html#section-available-properti
 
 [Message Formatter](https://tinylog.org/v2/extending/#custom-logging-api) (`format` property) is supported
 
+#### Send Interval
+
+A send interval can be configured to buffer all log entries which occur withing this interval.
+
+After the interval has passed one combined email is sent.
+
+Use property `sendinterval` in writer config to activate and configure send interval.
+
+see [java.time.Duration#parse(CharSequence)](https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/time/Duration.html#parse(java.lang.CharSequence))
+for supported values
+
 #### Example
 
 example of `tinylog.properties`:
@@ -66,7 +77,8 @@ writer_simplemail.simplejavamail.javaxmail.debug=false
 writer_simplemail.simplejavamail.smtp.host=smtp.mailserver.com
 writer_simplemail.simplejavamail.defaults.subject=SimpleMail Writer
 writer_simplemail.simplejavamail.defaults.from.address=simplemail@mailserver.com
-writer_simplemail.simplejavamail.defaults.to.address=help@mailserver.com
+writer_simplemail.simplejavamail.defaults.to.address=logs@mailserver.com
+writer_simplemail.sendinterval=PT5M
 ```
 
 ## Masked Writers
