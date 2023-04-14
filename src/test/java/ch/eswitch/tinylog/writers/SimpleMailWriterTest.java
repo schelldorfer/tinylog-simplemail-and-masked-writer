@@ -114,9 +114,9 @@ public class SimpleMailWriterTest
             // session.setDebug(true);
             store = session.getStore("imap");
 
-            String username = System.getenv(ConfigLoader.Property.SMTP_USERNAME.key());
-            String password = System.getenv(ConfigLoader.Property.SMTP_PASSWORD.key());
-            String host = System.getenv("simplejavamail.imap.host");
+            String username = System.getenv(ConfigLoader.Property.SMTP_USERNAME.key().toUpperCase().replaceAll("\\.", "_"));
+            String password = System.getenv(ConfigLoader.Property.SMTP_PASSWORD.key().toUpperCase().replaceAll("\\.", "_"));
+            String host = System.getenv("SIMPLEJAVAMAIL_IMAP_HOST");
 
             Assertions.assertNotNull(username, "environment variable '" + ConfigLoader.Property.SMTP_USERNAME.key() + "' missing");
             Assertions.assertNotNull(password, "environment variable '" + ConfigLoader.Property.SMTP_PASSWORD.key() + "' missing");

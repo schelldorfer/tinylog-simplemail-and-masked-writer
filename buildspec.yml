@@ -4,12 +4,12 @@ env:
   secrets-manager:
     ESWITCH_ARTIFACOTRY_USERNAME: "aws/artifactory:username"
     ESWITCH_ARTIFACOTRY_PASSWORD: "aws/artifactory:password"
-    simplejavamail.smtp.host: "aws/simplejavamail:simplejavamail.smtp.host"
-    simplejavamail.imap.host: "aws/simplejavamail:simplejavamail.imap.host"
-    simplejavamail.smtp.username: "aws/simplejavamail:simplejavamail.smtp.username"
-    simplejavamail.smtp.password: "aws/simplejavamail:simplejavamail.smtp.password"
-    simplejavamail.defaults.from.address: "aws/simplejavamail:simplejavamail.defaults.from.address"
-    simplejavamail.defaults.to.address: "aws/simplejavamail:simplejavamail.defaults.to.address"
+    SIMPLEJAVAMAIL_SMTP_HOST: "aws/simplejavamail:simplejavamail.smtp.host"
+    SIMPLEJAVAMAIL_IMAP_HOST: "aws/simplejavamail:simplejavamail.imap.host"
+    SIMPLEJAVAMAIL_SMTP_USERNAME: "aws/simplejavamail:simplejavamail.smtp.username"
+    SIMPLEJAVAMAIL_SMTP_PASSWORD: "aws/simplejavamail:simplejavamail.smtp.password"
+    SIMPLEJAVAMAIL_DEFAULTS_FROM_ADDRESS: "aws/simplejavamail:simplejavamail.defaults.from.address"
+    SIMPLEJAVAMAIL_DEFAULTS_TO_ADDRESS: "aws/simplejavamail:simplejavamail.defaults.to.address"
 
 phases:
   install:
@@ -39,8 +39,8 @@ phases:
       - echo $(date +"%F %T.%N") build phase started
       - pwd
       - echo ESWITCH_ARTIFACOTRY_USERNAME $ESWITCH_ARTIFACOTRY_USERNAME
-      - echo simplejavamail.smtp.host $simplejavamail.smtp.host
-      - echo simplejavamail.smtp.username $simplejavamail.smtp.username
+      - echo SIMPLEJAVAMAIL_SMTP_HOST $SIMPLEJAVAMAIL_SMTP_HOST
+      - echo SIMPLEJAVAMAIL_SMTP_USERNAME $SIMPLEJAVAMAIL_SMTP_USERNAME
       - mvn --no-transfer-progress -s settings.xml clean deploy
     finally:
       - echo $(date +"%F %T.%N") build phase ended
