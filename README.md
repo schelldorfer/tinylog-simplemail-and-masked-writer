@@ -16,14 +16,14 @@ for [tinylog 2](https://tinylog.org/v2/) logging framework.
 <dependency>
     <groupId>ch.eswitch.tinylog.writers</groupId>
     <artifactId>tinylog-simplemail-and-masked-writer</artifactId>
-    <version>1.0.3</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```
-compile(group: 'ch.eswitch.tinylog.writers', name: 'tinylog-simplemail-and-masked-writer', version: '1.0.3', ext: 'pom')
+compile(group: 'ch.eswitch.tinylog.writers', name: 'tinylog-simplemail-and-masked-writer', version: '1.1.0', ext: 'pom')
 ```
 
 ### Build Repository
@@ -54,6 +54,17 @@ see https://www.simplejavamail.org/configuration.html#section-available-properti
 
 [Message Formatter](https://tinylog.org/v2/extending/#custom-logging-api) (`format` property) is supported
 
+#### Send Interval
+
+A send interval can be configured to buffer all log entries which occur withing this interval.
+
+After the interval has passed one combined email is sent.
+
+Use property `sendinterval` in writer config to activate and configure send interval.
+
+see [java.time.Duration#parse(CharSequence)](https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/time/Duration.html#parse(java.lang.CharSequence))
+for supported values
+
 #### Example
 
 example of `tinylog.properties`:
@@ -66,7 +77,8 @@ writer_simplemail.simplejavamail.javaxmail.debug=false
 writer_simplemail.simplejavamail.smtp.host=smtp.mailserver.com
 writer_simplemail.simplejavamail.defaults.subject=SimpleMail Writer
 writer_simplemail.simplejavamail.defaults.from.address=simplemail@mailserver.com
-writer_simplemail.simplejavamail.defaults.to.address=help@mailserver.com
+writer_simplemail.simplejavamail.defaults.to.address=logs@mailserver.com
+writer_simplemail.sendinterval=PT5M
 ```
 
 ## Masked Writers
