@@ -1,6 +1,7 @@
 version: 0.2
 
 env:
+  git-credential-helper: yes
   secrets-manager:
     ESWITCH_ARTIFACOTRY_USERNAME: "aws/artifactory:username"
     ESWITCH_ARTIFACOTRY_PASSWORD: "aws/artifactory:password"
@@ -52,7 +53,7 @@ phases:
       - git status
       - git add README.md
       - git status
-      - git commit --author="AWS CodeBuild <>" -m "README.md"
+      - git commit -m "README.md"
       - git status
       - git push
     finally:
