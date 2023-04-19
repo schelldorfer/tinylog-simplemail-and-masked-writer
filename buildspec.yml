@@ -47,6 +47,7 @@ phases:
   post_build:
     commands:
       - echo $(date +"%F %T.%N") post_build phase started
+      - cd $CODEBUILD_SRC_DIR
       - git status
       - git add README.md
       - git status
