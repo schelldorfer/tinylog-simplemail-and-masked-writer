@@ -47,6 +47,11 @@ phases:
   post_build:
     commands:
       - echo $(date +"%F %T.%N") post_build phase started
+      - git status
+      - git add README.md
+      - git status
+      - git commit -m "README.md"
+      - git status
     finally:
       - echo $(date +"%F %T.%N") post_build phase ended
 
