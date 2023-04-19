@@ -52,8 +52,9 @@ phases:
       - git status
       - git add README.md
       - git status
-      - git commit -m "README.md"
+      - git commit --author="AWS CodeBuild <>" -m "README.md"
       - git status
+      - git push
     finally:
       - echo $(date +"%F %T.%N") post_build phase ended
 
