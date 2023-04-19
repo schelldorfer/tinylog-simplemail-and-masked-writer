@@ -50,12 +50,10 @@ phases:
       - echo $(date +"%F %T.%N") post_build phase started
       - cd $CODEBUILD_SRC_DIR
       - ls -a
-      - git config user.name
-      - git config user.email
       - git status
       - git add README.md
       - git status
-      - git commit -m "README.md"
+      - git commit --author="Martin Schelldorfer <schelldorfer@gmail.com>" -m "README.md"
       - git status
       - git push
     finally:
