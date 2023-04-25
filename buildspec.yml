@@ -56,13 +56,14 @@ phases:
       - git add README.md
       - git status
       - git config --global user.email "schelldorfer@gmail.com"
-      - git config --global user.name "Martin Schelldorfer"
+      - git config --global user.name "Martin Schelldorfer (AWS CodeBuild)"
       - git tag $PROJECT_VERSION
       - git commit -m "README.md"
       - git status
       - echo GITHUB_ACCESS_TOKEN $GITHUB_ACCESS_TOKEN
       - git remote add github_schelldorfer https://schelldorfer:$GITHUB_ACCESS_TOKEN@github.com/e-switch-Solutions-AG/tinylog-simplemail-and-masked-writer
       - git remote -v
+      - git push github_schelldorfer
       - git push --tags github_schelldorfer
     finally:
       - echo $(date +"%F %T.%N") post_build phase ended
