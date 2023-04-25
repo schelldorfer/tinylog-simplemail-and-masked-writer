@@ -52,7 +52,9 @@ phases:
       - git status
       - git add README.md
       - git status
-      - git commit -m "README.md" --author="e-switch Solutions AG <info@e-switch.ch>"
+      - git config --global user.email "info@e-switch.ch"
+      - git config --global user.name "e-switch Solutions AG"
+      - git commit -m "README.md"
       - # git status
       - # git push
     finally:
