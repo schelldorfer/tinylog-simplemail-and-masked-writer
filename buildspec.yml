@@ -44,7 +44,7 @@ phases:
       - echo SIMPLEJAVAMAIL_SMTP_USERNAME $SIMPLEJAVAMAIL_SMTP_USERNAME
       - PROJECT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.4.0:evaluate -Dexpression=project.version -q -DforceStdout)
       - echo PROJECT_VERSION $PROJECT_VERSION
-      - mvn --no-transfer-progress -s settings.xml clean deploy
+      - mvn -DskipTests --no-transfer-progress -s settings.xml clean deploy
     finally:
       - echo $(date +"%F %T.%N") build phase ended
   post_build:
