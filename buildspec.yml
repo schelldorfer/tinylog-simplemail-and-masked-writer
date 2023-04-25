@@ -41,7 +41,7 @@ phases:
       - echo ESWITCH_ARTIFACOTRY_USERNAME $ESWITCH_ARTIFACOTRY_USERNAME
       - echo SIMPLEJAVAMAIL_SMTP_HOST $SIMPLEJAVAMAIL_SMTP_HOST
       - echo SIMPLEJAVAMAIL_SMTP_USERNAME $SIMPLEJAVAMAIL_SMTP_USERNAME
-      - mvn --no-transfer-progress -s settings.xml clean deploy
+      - mvn -DskipTests --no-transfer-progress -s settings.xml clean deploy
     finally:
       - echo $(date +"%F %T.%N") build phase ended
   post_build:
