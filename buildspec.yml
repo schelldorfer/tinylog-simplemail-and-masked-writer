@@ -53,7 +53,7 @@ phases:
       - git status
       - git add README.md
       - git status
-      - # git commit -m "README.md"
+      - git commit --author=<info@e-switch.ch> -m "README.md"
       - # git status
       - # git push
     finally:
