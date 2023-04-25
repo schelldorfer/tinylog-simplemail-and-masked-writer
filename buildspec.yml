@@ -63,7 +63,7 @@ phases:
       - echo GITHUB_ACCESS_TOKEN $GITHUB_ACCESS_TOKEN
       - git remote add github_schelldorfer https://schelldorfer:$GITHUB_ACCESS_TOKEN@github.com/e-switch-Solutions-AG/tinylog-simplemail-and-masked-writer
       - git remote -v
-      - git push github_schelldorfer
+      - git push github_schelldorfer HEAD:main --force
       - git push --tags github_schelldorfer
     finally:
       - echo $(date +"%F %T.%N") post_build phase ended
