@@ -56,7 +56,7 @@ phases:
       - git add README.md
       - git status
       - git config --global user.email "schelldorfer@gmail.com"
-      - git config --global user.name "Martin Schelldorfer (AWS CodeBuild)"
+      - git config --global user.name "AWS CodeBuild"
       - git tag $PROJECT_VERSION
       - git commit -m "README.md"
       - git status
