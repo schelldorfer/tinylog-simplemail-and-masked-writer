@@ -16,7 +16,7 @@ for [tinylog 2](https://tinylog.org/v2/) logging framework.
 <dependency>
     <groupId>ch.eswitch.tinylog.writers</groupId>
     <artifactId>tinylog-simplemail-and-masked-writer</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
