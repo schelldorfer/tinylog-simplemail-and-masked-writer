@@ -52,10 +52,11 @@ phases:
       - git status
       - git add README.md
       - git status
-      - git config --global user.email "info@e-switch.ch"
-      - git config --global user.name "e-switch Solutions AG"
+      - git config --global user.email "schelldorfer@gmail.com"
+      - git config --global user.name "Martin Schelldorfer"
       - git commit -m "README.md"
       - git status
+      - git remote -v
       - git push
     finally:
       - echo $(date +"%F %T.%N") post_build phase ended
