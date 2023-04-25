@@ -4,6 +4,7 @@ env:
   secrets-manager:
     ESWITCH_ARTIFACOTRY_USERNAME: "aws/artifactory:username"
     ESWITCH_ARTIFACOTRY_PASSWORD: "aws/artifactory:password"
+    GITHUB_ACCESS_TOKEN: "aws/github/schelldorfer:access.token"
     SIMPLEJAVAMAIL_SMTP_HOST: "aws/simplejavamail:simplejavamail.smtp.host"
     SIMPLEJAVAMAIL_IMAP_HOST: "aws/simplejavamail:simplejavamail.imap.host"
     SIMPLEJAVAMAIL_SMTP_USERNAME: "aws/simplejavamail:simplejavamail.smtp.username"
@@ -56,8 +57,9 @@ phases:
       - git config --global user.name "Martin Schelldorfer"
       - git commit -m "README.md"
       - git status
+      - git remote set-url github https://schelldorfer:$GITHUB_ACCESS_TOKEN@github.com/e-switch-Solutions-AG/tinylog-simplemail-and-masked-writer
       - git remote -v
-      - git push
+      - git push github
     finally:
       - echo $(date +"%F %T.%N") post_build phase ended
 
