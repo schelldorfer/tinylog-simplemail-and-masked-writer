@@ -42,7 +42,8 @@ phases:
       - echo ESWITCH_ARTIFACOTRY_USERNAME $ESWITCH_ARTIFACOTRY_USERNAME
       - echo SIMPLEJAVAMAIL_SMTP_HOST $SIMPLEJAVAMAIL_SMTP_HOST
       - echo SIMPLEJAVAMAIL_SMTP_USERNAME $SIMPLEJAVAMAIL_SMTP_USERNAME
-      - mvn -DskipTests --no-transfer-progress -s settings.xml clean deploy
+      - mvn org.apache.maven.plugins:maven-help-plugin:3.4.0:evaluate -Dexpression=project.version -q -DforceStdout
+      - mvn --no-transfer-progress -s settings.xml clean deploy
     finally:
       - echo $(date +"%F %T.%N") build phase ended
   post_build:
