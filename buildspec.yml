@@ -1,7 +1,6 @@
 version: 0.2
 
 env:
-  git-credential-helper: yes
   secrets-manager:
     ESWITCH_ARTIFACOTRY_USERNAME: "aws/artifactory:username"
     ESWITCH_ARTIFACOTRY_PASSWORD: "aws/artifactory:password"
@@ -53,7 +52,7 @@ phases:
       - git status
       - git add README.md
       - git status
-      - git commit -m "README.md" --author="<info@e-switch.ch> 
+      - git commit -m "README.md" --author="<info@e-switch.ch>"
       - # git status
       - # git push
     finally:
