@@ -20,9 +20,10 @@ phases:
       - yum -y install ant
       - # install latest maven
       - # yum install -y maven # resolves to outdated maven 3.0
-      - maven_version=3.9.1
+      - maven_version=3.9.2
       - wget -q https://dlcdn.apache.org/maven/maven-3/${maven_version}/binaries/apache-maven-${maven_version}-bin.tar.gz
       - tar -xf apache-maven-${maven_version}-bin.tar.gz
+      - rm apache-maven-${maven_version}-bin.tar.gz
       - mv apache-maven-${maven_version} /usr/local/apache-maven
       - export M2_HOME=/usr/local/apache-maven
       - export M2=$M2_HOME/bin
@@ -58,7 +59,7 @@ phases:
       - git config --global user.email "dev@e-switch.ch"
       - git config --global user.name "e-switch Solutions Developer"
       - git tag $PROJECT_VERSION
-      - git commit -m "README.md"
+      - git commit -m "README.md" -m "AWS CodeBuild, build number $CODEBUILD_BUILD_NUMBER" -m "$CODEBUILD_BUILD_ARN"
       - git status
       - echo GITHUB_ACCESS_TOKEN $GITHUB_ACCESS_TOKEN
       - git remote add github_eswitch https://e-switch-ch:$GITHUB_ACCESS_TOKEN@github.com/e-switch-Solutions-AG/tinylog-simplemail-and-masked-writer
