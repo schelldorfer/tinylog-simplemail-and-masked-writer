@@ -11,7 +11,7 @@ env:
     SIMPLEJAVAMAIL_SMTP_PASSWORD: "aws/simplejavamail:simplejavamail.smtp.password"
     SIMPLEJAVAMAIL_DEFAULTS_FROM_ADDRESS: "aws/simplejavamail:simplejavamail.defaults.from.address"
     SIMPLEJAVAMAIL_DEFAULTS_TO_ADDRESS: "aws/simplejavamail:simplejavamail.defaults.to.address"
-    SNYK_TOKEN: "aws/snyk/schelldorfer:snyk.token"
+    SNYK_TOKEN: "aws/snyk/e-switch-ch:snyk.token"
 
 phases:
   install:
