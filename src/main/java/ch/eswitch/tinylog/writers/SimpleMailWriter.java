@@ -235,6 +235,8 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
         cachedThreadPool.awaitTermination(30, TimeUnit.SECONDS);
         InternalLogger.log(Level.TRACE, String.format("%s: cachedThreadPool terminated", Instant.now()));
         flush();
+
+        scheduledExecutorService.shutdown();
     }
 
     /**

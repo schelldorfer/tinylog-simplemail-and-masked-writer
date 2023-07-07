@@ -167,6 +167,36 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
             </plugin>
+            <plugin>
+                <!-- https://github.com/snyk/snyk-maven-plugin -->
+                <!-- https://docs.snyk.io/integrations/ci-cd-integrations/maven-plugin-integration -->
+                <groupId>io.snyk</groupId>
+                <artifactId>snyk-maven-plugin</artifactId>
+                <version>2.2.0</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>snyk-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>snyk-code-test</id>
+                        <goals>
+                            <goal>code-test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <apiToken>${env.SNYK_TOKEN}</apiToken>
+                    <args>
+                        <arg>--print-deps</arg>
+                        <arg>--fail-on=all</arg>
+                        <arg>--json-file-output=snyk-result.json</arg>
+                    </args>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
