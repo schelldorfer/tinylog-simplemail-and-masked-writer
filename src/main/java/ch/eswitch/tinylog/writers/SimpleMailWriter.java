@@ -17,6 +17,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
+import java.util.StringTokenizer;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
@@ -43,6 +44,28 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
      * see {@link java.time.Duration#parse(CharSequence)} for supported values
      */
     private static final String PROPERTY_SEND_INTERVAL = "sendinterval";
+
+    /**
+     * Token delimiter for {@link #PROPERTY_FILTER_INCLUDE} and {@link #PROPERTY_FILTER_EXCLUDE}
+     */
+    private static final String TOKEN_DELIMITER = ";";
+
+    private static final String PROPERTY_FILTER = "filter.";
+
+    /**
+     * list of strings for include filter<br/>
+     * {@link LogEntry#getMessage()} must contain at least ONE string from this list, otherwise it's discarded<br/>
+     * if property is not set, no filtering is applied<br/>
+     * multiple strings can be separated by {@value #TOKEN_DELIMITER}
+     */
+    private static final String PROPERTY_FILTER_INCLUDE = PROPERTY_FILTER + "include";
+
+    /**
+     * list of strings for exclude filter<br/>
+     * if {@link LogEntry#getMessage()} contains at least ONE string from this list, it's discarded<br/>
+     * multiple strings can be separated by {@value #TOKEN_DELIMITER}
+     */
+    private static final String PROPERTY_FILTER_EXCLUDE = PROPERTY_FILTER + "exclude";
 
     /**
      * buffered {@link LogEntry} which should be sent in next mail
@@ -76,6 +99,10 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
      * cached thread pool to process {@link LogEntry}
      */
     private final ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+
+    private ArrayList<String> includeFilter;
+
+    private ArrayList<String> excludeFilter;
 
     /**
      * @param properties Configuration for writer
@@ -128,6 +155,46 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
                     throw e;
                 }
             }
+            else if (key.equals(PROPERTY_FILTER_INCLUDE) || key.equals(PROPERTY_FILTER_EXCLUDE))
+            {
+                final boolean isInclude = key.equals(PROPERTY_FILTER_INCLUDE);
+
+                if (isInclude)
+                {
+                    if (includeFilter == null)
+                    {
+                        includeFilter = new ArrayList<>();
+                    }
+                }
+                else
+                {
+                    if (excludeFilter == null)
+                    {
+                        excludeFilter = new ArrayList<>();
+                    }
+                }
+
+                StringTokenizer t = new StringTokenizer(value, TOKEN_DELIMITER);
+
+                while (t.hasMoreTokens())
+                {
+                    String s = t.nextToken();
+                    s = s.trim().toLowerCase();
+
+                    if (s.length() > 0)
+                    {
+                        if (isInclude)
+                        {
+                            includeFilter.add(s);
+                        }
+                        else
+                        {
+                            excludeFilter.add(s);
+                        }
+                        InternalLogger.log(Level.DEBUG, key + ": add " + s);
+                    }
+                }
+            }
         });
 
         try
@@ -151,6 +218,28 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
     public void write(final LogEntry logEntry)
     {
         InternalLogger.log(Level.TRACE, String.format("%s: write", Instant.now()));
+
+        if (includeFilter != null && includeFilter.size() > 0)
+        {
+            String msg = logEntry.getMessage().toLowerCase();
+            if (!includeFilter.stream()
+                    .anyMatch(msg::contains))
+            {
+                InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, not matching include filter", Instant.now()));
+                return;
+            }
+        }
+
+        if (excludeFilter != null && excludeFilter.size() > 0)
+        {
+            String msg = logEntry.getMessage().toLowerCase();
+            if (excludeFilter.stream()
+                    .anyMatch(msg::contains))
+            {
+                InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, matching exclude filter", Instant.now()));
+                return;
+            }
+        }
 
         int size;
         synchronized (bufferedLogEntries)

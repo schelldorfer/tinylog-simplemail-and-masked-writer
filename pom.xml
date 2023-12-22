@@ -6,7 +6,7 @@
 
     <groupId>ch.eswitch.tinylog.writers</groupId>
     <artifactId>tinylog-simplemail-and-masked-writer</artifactId>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
 
     <packaging>jar</packaging>
 
@@ -40,12 +40,12 @@
         <dependency>
             <groupId>org.simplejavamail</groupId>
             <artifactId>simple-java-mail</artifactId>
-            <version>8.2.0</version>
+            <version>8.5.1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.0</version>
+            <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -84,7 +84,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.2</version>
+                <version>3.6.3</version>
                 <executions>
                     <execution>
                         <id>generate-javadocs</id>
@@ -159,7 +159,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.2</version>
+                <version>3.2.3</version>
             </plugin>
             <plugin>
                 <!-- https://github.com/snyk/snyk-maven-plugin -->
