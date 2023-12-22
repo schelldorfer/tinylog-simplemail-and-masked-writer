@@ -16,14 +16,14 @@ for [tinylog 2](https://tinylog.org/v2/) logging framework.
 <dependency>
     <groupId>ch.eswitch.tinylog.writers</groupId>
     <artifactId>tinylog-simplemail-and-masked-writer</artifactId>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```
-compile(group: 'ch.eswitch.tinylog.writers', name: 'tinylog-simplemail-and-masked-writer', version: '1.1.5', ext: 'pom')
+compile(group: 'ch.eswitch.tinylog.writers', name: 'tinylog-simplemail-and-masked-writer', version: '1.1.6', ext: 'pom')
 ```
 
 ### Build Repository
@@ -65,6 +65,26 @@ Use property `sendinterval` in writer config to activate and configure send inte
 see [java.time.Duration#parse(CharSequence)](https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/time/Duration.html#parse(java.lang.CharSequence))
 for supported values
 
+##### Include Filter
+
+Set property `filter.include` to define a list of include strings.
+
+Log Message must contain at least ONE string from this list, otherwise it's discarded.
+
+If property is not set, no filtering is applied.
+
+Multiple strings can be separated by `;`
+
+##### Exclude Filter
+
+Set property `filter.exclude` to define a list of exclude strings.
+
+If Log Message contains at least ONE string from this list, it's discarded.
+
+If property is not set, no filtering is applied.
+
+Multiple strings can be separated by `;`
+
 #### Example
 
 example of `tinylog.properties`:
@@ -79,6 +99,8 @@ writer_simplemail.simplejavamail.defaults.subject=SimpleMail Writer
 writer_simplemail.simplejavamail.defaults.from.address=simplemail@mailserver.com
 writer_simplemail.simplejavamail.defaults.to.address=logs@mailserver.com
 writer_simplemail.sendinterval=PT5M
+writer_simplemail.filter.include=include1; include2
+writer_simplemail.filter.exclude=exclude1; exclude2
 ```
 
 ## Masked Writers
