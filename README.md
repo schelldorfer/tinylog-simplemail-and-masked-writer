@@ -16,14 +16,14 @@ for [tinylog 2](https://tinylog.org/v2/) logging framework.
 <dependency>
     <groupId>ch.eswitch.tinylog.writers</groupId>
     <artifactId>tinylog-simplemail-and-masked-writer</artifactId>
-    <version>1.1.6</version>
+    <version>1.1.7</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```
-compile(group: 'ch.eswitch.tinylog.writers', name: 'tinylog-simplemail-and-masked-writer', version: '1.1.6', ext: 'pom')
+compile(group: 'ch.eswitch.tinylog.writers', name: 'tinylog-simplemail-and-masked-writer', version: '1.1.7', ext: 'pom')
 ```
 
 ### Build Repository
@@ -80,6 +80,8 @@ Multiple strings can be separated by `;`
 Set property `filter.exclude` to define a list of exclude strings.
 
 If Log Message contains at least ONE string from this list, it's discarded.
+
+Classname (including package name) and Message from Exception are checked as well.
 
 If property is not set, no filtering is applied.
 
