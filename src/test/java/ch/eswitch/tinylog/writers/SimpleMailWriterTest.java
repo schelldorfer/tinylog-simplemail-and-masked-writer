@@ -52,6 +52,7 @@ public class SimpleMailWriterTest
         Logger.info("start logging, UUID: " + uuid);
         logErrors();
         logErrors();
+        Logger.error(new IOException("test"));
 
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(this::logErrors, 0, 5, TimeUnit.SECONDS);

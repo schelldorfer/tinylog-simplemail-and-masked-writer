@@ -81,6 +81,8 @@ Set property `filter.exclude` to define a list of exclude strings.
 
 If Log Message contains at least ONE string from this list, it's discarded.
 
+Classname (including package name) and Message from Exception are checked as well.
+
 If property is not set, no filtering is applied.
 
 Multiple strings can be separated by `;`

@@ -225,19 +225,32 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
             if (!includeFilter.stream()
                     .anyMatch(msg::contains))
             {
-                InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, not matching include filter", Instant.now()));
+                InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, '%s' not matching include filter", Instant.now(), msg));
                 return;
             }
         }
 
         if (excludeFilter != null && excludeFilter.size() > 0)
         {
-            String msg = logEntry.getMessage().toLowerCase();
-            if (excludeFilter.stream()
-                    .anyMatch(msg::contains))
+            if (isExcluded(logEntry.getMessage()))
             {
-                InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, matching exclude filter", Instant.now()));
                 return;
+            }
+
+            // check Exception
+            if (logEntry.getException() != null)
+            {
+                // classname, including package name
+                if (isExcluded(logEntry.getException().getClass().getName()))
+                {
+                    return;
+                }
+
+                // Exception message
+                if (isExcluded(logEntry.getException().getMessage()))
+                {
+                    return;
+                }
             }
         }
 
@@ -254,6 +267,20 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
         }
 
         cachedThreadPool.execute(this::processBufferedLogEntries);
+    }
+
+    private boolean isExcluded(String text)
+    {
+        text = text.toLowerCase();
+
+        if (excludeFilter.stream()
+                .anyMatch(text::contains))
+        {
+            InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, '%s' matching exclude filter: ", Instant.now(), text));
+            return true;
+        }
+
+        return false;
     }
 
     /**
