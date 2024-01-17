@@ -219,39 +219,18 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
     {
         InternalLogger.log(Level.TRACE, String.format("%s: write", Instant.now()));
 
-        if (includeFilter != null && includeFilter.size() > 0)
+        // check include filter
+        if (!checkFilter(logEntry, true))
         {
-            String msg = logEntry.getMessage().toLowerCase();
-            if (!includeFilter.stream()
-                    .anyMatch(msg::contains))
-            {
-                InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, '%s' not matching include filter", Instant.now(), msg));
-                return;
-            }
+            InternalLogger.log(Level.DEBUG, String.format("%s: ignore logEntry, %s not matching include filter", Instant.now(), render(logEntry)));
+            return;
         }
 
-        if (excludeFilter != null && excludeFilter.size() > 0)
+        // check exclude filter
+        if (checkFilter(logEntry, false))
         {
-            if (isExcluded(logEntry.getMessage()))
-            {
-                return;
-            }
-
-            // check Exception
-            if (logEntry.getException() != null)
-            {
-                // classname, including package name
-                if (isExcluded(logEntry.getException().getClass().getName()))
-                {
-                    return;
-                }
-
-                // Exception message
-                if (isExcluded(logEntry.getException().getMessage()))
-                {
-                    return;
-                }
-            }
+            InternalLogger.log(Level.DEBUG, String.format("%s: ignore logEntry, %s matching exclude filter", Instant.now(), render(logEntry)));
+            return;
         }
 
         int size;
@@ -269,14 +248,89 @@ public class SimpleMailWriter extends AbstractFormatPatternWriter
         cachedThreadPool.execute(this::processBufferedLogEntries);
     }
 
-    private boolean isExcluded(String text)
+    /**
+     * @param logEntry LogEntry
+     * @param include use include or exclude filter
+     * @return true, if text is part of filter
+     */
+    private boolean checkFilter(LogEntry logEntry, boolean include)
     {
+        boolean isFiltered = false;
+        if ((include && includeFilter != null && includeFilter.size() > 0) || (!include && excludeFilter != null && excludeFilter.size() > 0))
+        {
+            if (checkFilter(logEntry.getMessage(), include))
+            {
+                if (!include)
+                {
+                    InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, '%s' matching exclude filter", Instant.now(), logEntry.getMessage()));
+                    return true;
+                }
+                isFiltered = true;
+            }
+
+            // check Exception
+            if (!isFiltered && logEntry.getException() != null)
+            {
+                // classname, including package name
+                if (checkFilter(logEntry.getException().getClass().getName(), include))
+                {
+                    if (!include)
+                    {
+                        InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, '%s' matching exclude filter", Instant.now(), logEntry.getException().getClass().getName()));
+                        return true;
+                    }
+                    isFiltered = true;
+                }
+
+                // Exception message
+                if (!isFiltered && checkFilter(logEntry.getException().getMessage(), include))
+                {
+                    if (!include)
+                    {
+                        InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, '%s' matching exclude filter", Instant.now(), logEntry.getException().getMessage()));
+                        return true;
+                    }
+                    isFiltered = true;
+                }
+            }
+
+            if (include && !isFiltered)
+            {
+                InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, '%s' not matching include filter", Instant.now(), render(logEntry)));
+                return true;
+            }
+        }
+
+        return isFiltered;
+    }
+
+    /**
+     * @param text text to be checked
+     * @param include use include or exclude filter
+     * @return true, if text is part of filter
+     */
+    private boolean checkFilter(String text, boolean include)
+    {
+        if (text == null || text.length() == 0)
+        {
+            return false;
+        }
+
         text = text.toLowerCase();
 
-        if (excludeFilter.stream()
+        ArrayList<String> filter;
+        if (include)
+        {
+            filter = includeFilter;
+        }
+        else
+        {
+            filter = excludeFilter;
+        }
+
+        if (filter.stream()
                 .anyMatch(text::contains))
         {
-            InternalLogger.log(Level.TRACE, String.format("%s: ignore logEntry, '%s' matching exclude filter: ", Instant.now(), text));
             return true;
         }
 
