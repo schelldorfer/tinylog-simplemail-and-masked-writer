@@ -7,6 +7,7 @@ import org.simplejavamail.config.ConfigLoader;
 import org.tinylog.Logger;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.UUID;
@@ -52,7 +53,13 @@ public class SimpleMailWriterTest
         Logger.info("start logging, UUID: " + uuid);
         logErrors();
         logErrors();
-        Logger.error(new IOException("test"));
+
+        // test Exception
+        String loggerId = UnsupportedOperationException.class.getSimpleName() + ", UUID: " + uuid + "#";
+        Logger.error(new UnsupportedOperationException(loggerId));
+        loggerIds.add(loggerId);
+
+        Logger.error(new InvocationTargetException(null));
 
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(this::logErrors, 0, 5, TimeUnit.SECONDS);
@@ -115,12 +122,14 @@ public class SimpleMailWriterTest
             // session.setDebug(true);
             store = session.getStore("imap");
 
-            String username = System.getenv(ConfigLoader.Property.SMTP_USERNAME.key().toUpperCase().replaceAll("\\.", "_"));
-            String password = System.getenv(ConfigLoader.Property.SMTP_PASSWORD.key().toUpperCase().replaceAll("\\.", "_"));
+            final String ENV_USERNAME = ConfigLoader.Property.SMTP_USERNAME.key().toUpperCase().replaceAll("\\.", "_");
+            final String ENV_PASSWORD = ConfigLoader.Property.SMTP_PASSWORD.key().toUpperCase().replaceAll("\\.", "_");
+            String username = System.getenv(ENV_USERNAME);
+            String password = System.getenv(ENV_PASSWORD);
             String host = System.getenv("SIMPLEJAVAMAIL_IMAP_HOST");
 
-            Assertions.assertNotNull(username, "environment variable '" + ConfigLoader.Property.SMTP_USERNAME.key() + "' missing");
-            Assertions.assertNotNull(password, "environment variable '" + ConfigLoader.Property.SMTP_PASSWORD.key() + "' missing");
+            Assertions.assertNotNull(username, "environment variable '" + ENV_USERNAME + "' missing");
+            Assertions.assertNotNull(password, "environment variable '" + ENV_PASSWORD + "' missing");
             Assertions.assertNotNull(host, "environment variable 'simplejavamail.imap.host' missing");
 
             Logger.info("use " + host + ": " + username + " / " + password.replaceAll(".", "*"));
