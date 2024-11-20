@@ -16,14 +16,14 @@ for [tinylog 2](https://tinylog.org/v2/) logging framework.
 <dependency>
     <groupId>ch.eswitch.tinylog.writers</groupId>
     <artifactId>tinylog-simplemail-and-masked-writer</artifactId>
-    <version>1.1.8</version>
+    <version>1.1.9</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```
-compile(group: 'ch.eswitch.tinylog.writers', name: 'tinylog-simplemail-and-masked-writer', version: '1.1.8', ext: 'pom')
+compile(group: 'ch.eswitch.tinylog.writers', name: 'tinylog-simplemail-and-masked-writer', version: '1.1.9', ext: 'pom')
 ```
 
 ### Build Repository
